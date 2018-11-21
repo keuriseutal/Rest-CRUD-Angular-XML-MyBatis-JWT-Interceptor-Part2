@@ -4,9 +4,12 @@ import { Observable, of } from "rxjs";
 import { catchError, map } from "rxjs/operators";
 
 import { Student } from "../models/student.model";
+import { Account } from "../models/account.model";
 
 const STUDENTS_API: string = "http://localhost:8080/school/students/";
 const STUDENT_API: string = "http://localhost:8080/school/student/";
+const LOGIN_API: string = "http://localhost:8080/school/login";
+const LOGOUT_API: string = "http://localhost:8080/school/logout";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,13 +21,30 @@ const httpOptions = {
   providedIn: "root"
 })
 export class StudentService {
-  
   constructor(private http: HttpClient) {}
 
+  login(payload: Account): Observable<Account> {
+    return this.http
+      .post<Account>(LOGIN_API, payload)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
+  }
+
+  logout() {
+    return this.http
+      .get(LOGOUT_API)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
+  }
+
+  getAccounts(): Observable<Account[]>{
+    return this.http
+      .get<Account[]>(STUDENTS_API)
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
+  }
+
   getStudents(): Observable<Student[]> {
-    return (this.http
+    return this.http
       .get<Student[]>(STUDENTS_API)
-      .pipe(catchError((error: any) => Observable.throw(error.json()))));
+      .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
   getStudentById(id: number): Observable<Student> {
@@ -63,7 +83,7 @@ export class StudentService {
       .pipe(catchError((error: any) => Observable.throw(error.json())));
   }
 
-  deleteAll(payload: Student[]): Observable<Student[]>{
+  deleteAll(payload: Student[]): Observable<Student[]> {
     console.log("clearing everything... ");
 
     return this.http

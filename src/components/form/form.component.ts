@@ -17,6 +17,7 @@ import { Student } from "../../models/student.model";
   styleUrls: ["./form.component.css"]
 })
 export class FormComponent implements OnInit, OnChanges {
+
   @Output()
   addedStudent = new EventEmitter<Student>();
   @Output()
@@ -25,6 +26,8 @@ export class FormComponent implements OnInit, OnChanges {
   deleteAll = new EventEmitter();
   @Output()
   refreshList = new EventEmitter();
+  @Output()
+  logOut = new EventEmitter();
 
   @Input()
   studentToUpdate: Student;
@@ -32,7 +35,9 @@ export class FormComponent implements OnInit, OnChanges {
   studentForm = this.fb.group({
     fname: ["", Validators.required],
     lname: ["", Validators.required],
-    section: ["", Validators.required]
+    section: ["", Validators.required],
+    uname: ["", Validators.required],
+    pass: ["", Validators.required]
   });
 
   constructor(private fb: FormBuilder) {}
@@ -44,26 +49,31 @@ export class FormComponent implements OnInit, OnChanges {
         fname: "",
         lname: "",
         section: "",
+        uname: "",
+        pass: "",
         isToDelete: false
       };
     }
-
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     if (this.studentToUpdate == null) {
       this.studentToUpdate = {
         id: 0,
         fname: "",
         lname: "",
         section: "",
+        uname: "",
+        pass: "",
         isToDelete: false
       };
     }
     this.studentForm = this.fb.group({
       fname: [this.studentToUpdate.fname, Validators.required],
       lname: [this.studentToUpdate.lname, Validators.required],
-      section: [this.studentToUpdate.section, Validators.required]
+      section: [this.studentToUpdate.section, Validators.required],
+      uname: [this.studentToUpdate.uname, Validators.required],
+      pass: [this.studentToUpdate.pass, Validators.required]
     });
   }
 
@@ -74,11 +84,12 @@ export class FormComponent implements OnInit, OnChanges {
         fname: this.studentForm.get("fname").value,
         lname: this.studentForm.get("lname").value,
         section: this.studentForm.get("section").value,
+        uname: this.studentForm.get("uname").value,
+        pass: this.studentForm.get("pass").value,
         isToDelete: false
       };
 
       this.addedStudent.emit(validStudent);
-      
     } else {
       window.alert("Please make sure that all fields are filled");
     }
@@ -91,6 +102,8 @@ export class FormComponent implements OnInit, OnChanges {
         fname: this.studentForm.get("fname").value,
         lname: this.studentForm.get("lname").value,
         section: this.studentForm.get("section").value,
+        uname: this.studentToUpdate.uname,
+        pass: this.studentToUpdate.pass,
         isToDelete: false
       };
 
@@ -106,6 +119,8 @@ export class FormComponent implements OnInit, OnChanges {
       fname: "",
       lname: "",
       section: "",
+      uname: "",
+      pass: "",
       isToDelete: false
     };
 
@@ -128,5 +143,9 @@ export class FormComponent implements OnInit, OnChanges {
 
   getErrorMessage(fieldName: string) {
     return fieldName + " required";
+  }
+
+  onLogOut() {
+    this.logOut.emit();
   }
 }

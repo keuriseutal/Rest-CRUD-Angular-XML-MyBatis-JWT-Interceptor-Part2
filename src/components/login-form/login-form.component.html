@@ -1,0 +1,34 @@
+<h1>Login</h1>
+
+<form [formGroup]="loginForm">
+  <div class="form-group">
+    <label for="uname">Username</label>
+    <input
+      type="text"
+      class="form-control"
+      id="uname"
+      placeholder="Enter Username"
+      formControlName="uname"
+    />
+    <!--
+      <small style="color: red" *ngIf="student.fname.errors.required && student.fname.touched">{{this.getErrorMessage('First Name is')}}</small>
+    -->
+  </div>
+  <div class="form-group">
+    <label for="pass">Password</label>
+    <input
+      type="text"
+      class="form-control"
+      id="pass"
+      placeholder="Enter Password"
+      formControlName="pass"
+    />
+    <!--
+      <small style="color: red" *ngIf="student.lname.errors.required && student.lname.touched">{{this.getErrorMessage('Last Name is')}}</small>
+    -->
+  </div>
+
+  <button type="button" class="btn btn-primary" (click)="onLogin()">
+    Login
+  </button>
+</form>

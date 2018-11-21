@@ -1,3 +1,5 @@
+<button type="button" class="btn btn-primary" (click)="onLogOut()">Log Out</button>
+
 <form [formGroup]="studentForm">
   <div class="form-group">
     <label for="fname">First Name</label>
@@ -16,6 +18,22 @@
   <div class="form-group">
     <label for="section">Section</label>
     <input type="text" class="form-control" id="section" maxlength="5" placeholder="Enter Section" formControlName="section" [value]="studentToUpdate.section">
+    <!--
+    <small style="color: red" *ngIf="student.section.errors.required && student.section.touched">{{this.getErrorMessage('Section is')}}</small>
+      -->
+  </div>
+
+  <div class="form-group" *ngIf="studentToUpdate.id == 0">
+    <label for="uname">Username</label>
+    <input type="text" class="form-control" id="uname" placeholder="Enter Username" formControlName="uname">
+    <!--
+    <small style="color: red" *ngIf="student.section.errors.required && student.section.touched">{{this.getErrorMessage('Section is')}}</small>
+      -->
+  </div>
+
+  <div class="form-group" *ngIf="studentToUpdate.id == 0">
+    <label for="pass">Password</label>
+    <input type="text" class="form-control" id="pass" placeholder="Enter Password" formControlName="pass">
     <!--
     <small style="color: red" *ngIf="student.section.errors.required && student.section.touched">{{this.getErrorMessage('Section is')}}</small>
       -->

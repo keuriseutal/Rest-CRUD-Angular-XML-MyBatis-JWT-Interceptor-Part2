@@ -3,6 +3,7 @@ import { StudentService } from "../../services/student.service";
 import { Student } from "../../models/student.model";
 import { Observable } from "rxjs";
 import { IfStmt } from "../../../node_modules/@angular/compiler";
+import { Router } from "@angular/router";
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -16,7 +17,7 @@ export class HomeComponent implements OnInit {
   studentToUpdate: Student;
   clearHighlight: boolean = false;
 
-  constructor(private studentService: StudentService) {}
+  constructor(private studentService: StudentService, private router: Router) {}
 
   ngOnInit() {
     this.studentService.getStudents().subscribe(s => (this.students = s));
@@ -55,6 +56,12 @@ export class HomeComponent implements OnInit {
 
   refreshList(){
     this.studentService.getStudents().subscribe(s => (this.students = s));
+  }
+
+  onLogOut(){
+    this.studentService.logout();
+    this.router.navigate(['/','login']);
+    console.log("User has logged Out");
   }
 
 }
