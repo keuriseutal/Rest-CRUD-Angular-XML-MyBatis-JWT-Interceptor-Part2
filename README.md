@@ -1,6 +1,20 @@
-# School2
+# Rest-CRUD-Angular-XML-MyBatis-JWT-Interceptor-Part2
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.8.
+
+#Preview
+
+Login 
+
+![login](front-login.PNG)
+
+Login Valid Credentials
+
+![loginSuccess](front-loginSuccess.PNG)
+
+![front-p1](front-part1.PNG)
+
+![front-p2](front-part2.PNG)
 
 ## Development server
 
